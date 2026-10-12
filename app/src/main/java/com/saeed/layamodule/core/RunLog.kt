@@ -188,6 +188,13 @@ object RunLog {
         return "appRss=${rssKb / 1024}MB deviceAvail=${info.availMem / 1024 / 1024}MB lowMemory=${info.lowMemory}"
     }
 
+    /** Free device memory in MB — used to refuse a load that the system would kill. */
+    fun availableMb(context: Context): Long {
+        val info = ActivityManager.MemoryInfo()
+        (context.getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager)?.getMemoryInfo(info)
+        return info.availMem / 1024 / 1024
+    }
+
     // ------------------------------------------------------------------ viewing
     fun tail(limit: Int = 400): List<String> = synchronized(lock) {
         ring.toList().takeLast(limit)

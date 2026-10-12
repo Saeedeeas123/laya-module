@@ -78,39 +78,53 @@ private val BAD = Color(0xFFFF6B6B)
 fun LayaApp(activity: ComponentActivity) {
     var screen by remember { mutableStateOf("main") }
     var engine by remember { mutableStateOf<LayaEngine?>(null) }
-    var status by remember { mutableStateOf("looking for the model…") }
+    var status by remember { mutableStateOf("model not loaded") }
     var failure by remember { mutableStateOf<String?>(null) }
+    var loading by remember { mutableStateOf(false) }
+    var steps by remember { mutableStateOf<List<String>>(emptyList()) }
 
-    LaunchedEffect(Unit) {
-        val model = ModelLocator.find(activity)
-        if (model == null) {
-            status = "model missing"
-            failure = ModelLocator.explain(activity)
-            RunLog.e("model not found. ${ModelLocator.explain(activity)}")
-            return@LaunchedEffect
-        }
-        status = "loading ${model.name} (this takes a while)…"
-        RunLog.i("loading engine from ${model.absolutePath}")
-        val loaded = withContext(Dispatchers.IO) {
+    // Loading is manual, not automatic. The 1.29 GB graph is the riskiest thing this app does; if
+    // the process dies during it, the app must still come up so the log can be read and the load
+    // retried, rather than dying on every launch.
+    fun startLoad() {
+        if (loading) return
+        loading = true
+        failure = null
+        steps = emptyList()
+        status = "loading…"
+        Thread {
+            fun ui(block: () -> Unit) = activity.runOnUiThread(block)
+            val model = ModelLocator.find(activity)
+            if (model == null) {
+                val message = ModelLocator.explain(activity)
+                RunLog.e("model not found. $message")
+                ui { failure = message; status = "model missing"; loading = false }
+                return@Thread
+            }
             try {
-                LayaEngine.open(
+                val loaded = LayaEngine.open(
                     tokenizerStream = activity.assets.open("laya/tokenizer.bin"),
                     configStream = activity.assets.open("laya/config.json"),
                     modelPath = model.absolutePath,
-                ) { RunLog.i(it) }
+                    probeStream = activity.assets.open("laya/probe.onnx"),
+                    cacheDir = activity.cacheDir,
+                    log = { line ->
+                        RunLog.i(line)
+                        ui { steps = steps + line }
+                    },
+                    memory = { RunLog.memoryLine(activity) },
+                    availableMb = { RunLog.availableMb(activity) },
+                )
+                ui { engine = loaded; status = "ready · ${model.name}"; loading = false }
             } catch (t: Throwable) {
                 RunLog.e("engine load failed", t)
-                null
+                ui {
+                    failure = "${t::class.simpleName}: ${t.message}"
+                    status = "load failed"
+                    loading = false
+                }
             }
-        }
-        if (loaded == null) {
-            status = "model failed to load"
-            failure = "The graph could not be loaded — the log has the full stack trace."
-        } else {
-            engine = loaded
-            status = "ready · ${model.name}"
-            RunLog.i("engine ready; ${RunLog.memoryLine(activity)}")
-        }
+        }.start()
     }
 
     MaterialTheme(colorScheme = darkColorScheme(primary = ACCENT, secondary = ACCENT2)) {
@@ -118,7 +132,8 @@ fun LayaApp(activity: ComponentActivity) {
             when (screen) {
                 "selftest" -> SelfTestScreen(engine, activity) { screen = "main" }
                 "log" -> LogScreen(activity) { screen = "main" }
-                else -> MainScreen(engine, status, failure, activity,
+                else -> MainScreen(engine, status, failure, steps, loading, activity,
+                    onLoad = { startLoad() },
                     onSelfTest = { screen = "selftest" }, onLog = { screen = "log" })
             }
         }
@@ -131,7 +146,10 @@ private fun MainScreen(
     engine: LayaEngine?,
     status: String,
     failure: String?,
+    steps: List<String>,
+    loading: Boolean,
     activity: ComponentActivity,
+    onLoad: () -> Unit,
     onSelfTest: () -> Unit,
     onLog: () -> Unit,
 ) {
@@ -159,16 +177,26 @@ private fun MainScreen(
                         text = { Text(type.wire) })
                 }
             }
-            failure?.let {
-                Card(
-                    modifier = Modifier.fillMaxWidth().padding(12.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFF2A1A1A)),
-                ) {
-                    Column(Modifier.padding(12.dp)) {
-                        Text("Cannot run yet", color = BAD, fontWeight = FontWeight.Bold)
-                        Text(it, fontSize = 13.sp)
-                        Text("The full log is under the Log button, and also in " +
-                            "Download/LayaModule/logs/ on the phone.", fontSize = 12.sp, color = Color.Gray)
+            if (engine == null) {
+                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(onClick = onLoad, enabled = !loading, modifier = Modifier.fillMaxWidth()) {
+                        Text(if (loading) "loading the 1.29 GB graph…" else "Load the model")
+                    }
+                    failure?.let {
+                        Card(colors = CardDefaults.cardColors(containerColor = Color(0xFF2A1A1A))) {
+                            Column(Modifier.padding(12.dp)) {
+                                Text("Load failed", color = BAD, fontWeight = FontWeight.Bold)
+                                Text(it, fontSize = 13.sp)
+                            }
+                        }
+                    }
+                    if (steps.isNotEmpty()) {
+                        Text("loading steps (also in the log)", fontSize = 11.sp, color = Color.Gray)
+                        steps.takeLast(14).forEach { line ->
+                            Text(line, fontFamily = FontFamily.Monospace, fontSize = 10.sp,
+                                color = if (line.contains("FAILED") || line.contains("could not"))
+                                    WARN else Color(0xFFB8C6DD))
+                        }
                     }
                 }
             }

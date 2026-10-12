@@ -11,6 +11,11 @@ Produces, under the Android project:
 Every golden is produced by the real implementation (HuggingFace tokenizer, `laya.common`,
 the ONNX agent), never by hand, so a Kotlin mismatch is a Kotlin bug and not a stale fixture.
 
+Needs the reference Python environment. Point REFERENCE at it (it must contain the checkpoint's
+support files and the installed `laya` package):
+
+    REFERENCE=/path/to/reference .venv/bin/python tools/build_assets.py
+
 Run:  .venv/bin/python tools/build_assets.py
 """
 from __future__ import annotations
@@ -24,11 +29,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from bpe_ref import RefTokenizer  # noqa: E402
 
-PY = "/root/projects/layalab"
-MODEL_DIR = os.path.join(PY, "models", "laya-multilingual")
+#: Where the reference implementation and the checkpoint's support files live. Overridable, so
+#: the tools do not depend on one particular machine layout.
+REFERENCE = os.environ.get("REFERENCE", "/root/projects/layalab")
+MODEL_DIR = os.environ.get("LAYALAB_MODEL_DIR", os.path.join(REFERENCE, "models", "laya-multilingual"))
 TOK_DIR = os.path.join(MODEL_DIR, "tokenizer")
-ONNX_PATH = "/sdcard/Android/media/com.saeed.cosmo/laya/laya.fp32.onnx"
-PROJECT = "/root/projects/laya-module"
+ONNX_PATH = os.environ.get("LAYALAB_ONNX_PATH",
+                           "/sdcard/Android/media/com.saeed.cosmo/laya/laya.fp32.onnx")
+PROJECT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = os.path.join(PROJECT, "app", "src", "main", "assets", "laya")
 RESOURCES = os.path.join(PROJECT, "app", "src", "test", "resources", "laya")
 
