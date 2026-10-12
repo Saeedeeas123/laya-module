@@ -142,18 +142,49 @@ The 1.29 GB graph itself is the official ONNX export of `convaiinnovations/laya-
 * **It cannot write.** No summaries, no translations, no explanations. If you need prose, you need
   an LLM — Laya is the cheap decision layer in front of it.
 
-## Project layout
+## Project layout — two modules
 
 ```
-app/src/main/java/com/saeed/layamodule/
-  MainActivity.kt          the three tabs, the self-test screen, the log viewer
-  SelfTest.kt              on-device parity check against recorded reference answers
-  core/RunLog.kt           durable per-run logging + in-app viewing
-  laya/                    the module itself (no Android types except ModelLocator)
-app/src/main/assets/laya/  tokenizer.bin, config.json, goldens_e2e.json
-app/src/test/              JVM tests + the goldens they run against
-tools/                     asset builders, the tokenizer reference, the failure reporter
+laya-core/                          ← the reusable module (com.android.library)
+  src/main/java/…/laya/             LayaTokenizer, LayaQuestion, LayaPrompts, LayaHead,
+                                    LayaEngine, LayaConfig, ModelLocator — plain Kotlin
+  src/main/assets/laya/             tokenizer.bin (13 MB), config.json — ship inside the AAR
+  src/test/                         JVM parity tests + the goldens they run against
+  README.md                         how to use the module from another app
+
+app/                                ← the sample app (com.android.application)
+  src/main/java/…/MainActivity.kt   the three tabs, the self-test screen, the log viewer
+  src/main/java/…/LayaRuntime.kt    process-scoped engine holder (one session per process)
+  src/main/java/…/SelfTest.kt       on-device parity check against recorded reference answers
+  src/main/java/…/core/RunLog.kt    durable per-run logging + in-app viewing
+  src/main/assets/laya/             probe.onnx (12.9 MB, load diagnostic), goldens_e2e.json
+
+tools/                              asset builders, the tokenizer reference, the failure reporter
 ```
+
+`app` depends on `laya-core`; `laya-core` knows nothing about `app`. That direction is what makes
+it a module: another app adds one line and gets the engine, the tokenizer assets and the ONNX
+Runtime dependency.
+
+```kotlin
+implementation(project(":laya-core"))                           // inside this repository
+implementation("com.saeed.layamodule:laya-core:1.0.0")          // after :laya-core:publishToMavenLocal
+```
+
+## Measured on the device (Xiaomi 23090RA98G, Android 16)
+
+| what | value |
+|---|---|
+| graph load | **3.4 s** (basic optimisation, memory pattern and CPU arena off, 2 threads) |
+| one question | **~400-500 ms** |
+| resident after load | 1.5 GB |
+| tokenizer spot checks | 2/2 exact |
+| decisions vs the Python reference | all agreed; worst numeric deviation 0.071 (fp32 kernels differ between runtime builds) |
+
+The first build died silently inside ONNX Runtime's session creation. The fix was not one thing:
+session options chosen for memory instead of speed, a 12.9 MB probe model loaded first to prove
+the runtime works in-process, every ORT call bracketed by a flushed log line with a memory reading,
+and loading moved behind a button so a failure cannot make the app unusable.
 
 Toolchain is the frozen, on-device-verified set: AGP 8.2.2, Kotlin 1.9.22, Gradle 8.5, JDK 17,
 compileSdk/targetSdk 35, buildTools 35.0.1, ONNX Runtime Android 1.18.0, Gson 2.10.1.

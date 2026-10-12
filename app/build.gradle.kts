@@ -15,8 +15,8 @@ android {
         applicationId = "com.saeed.layamodule"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "0.2.0"
+        versionCode = 3
+        versionName = "0.3.0"
     }
 
     buildTypes {
@@ -63,8 +63,9 @@ dependencies {
     implementation(libs.compose.material3)
     debugImplementation(libs.compose.ui.tooling)
 
-    // Inference and JSON: both already in the local Gradle cache, no new download.
-    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.18.0")
+    // ONNX Runtime and Gson now arrive through the module; the app itself only needs Gson directly
+    // (it parses the self-test goldens).
+    implementation(project(":laya-core"))
     implementation("com.google.code.gson:gson:2.10.1")
 
     // The module's logic is plain Kotlin, so it is tested on the JVM against goldens produced by

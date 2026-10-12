@@ -20,5 +20,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "TemplateApp"
+rootProject.name = "LayaModule"
 include(":app")
+include(":laya-core")

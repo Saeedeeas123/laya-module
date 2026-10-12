@@ -77,15 +77,16 @@ private val BAD = Color(0xFFFF6B6B)
 @Composable
 fun LayaApp(activity: ComponentActivity) {
     var screen by remember { mutableStateOf("main") }
-    var engine by remember { mutableStateOf<LayaEngine?>(null) }
-    var status by remember { mutableStateOf("model not loaded") }
+    var engine by remember { mutableStateOf(LayaRuntime.engine()) }
+    var status by remember { mutableStateOf(LayaRuntime.status) }
     var failure by remember { mutableStateOf<String?>(null) }
     var loading by remember { mutableStateOf(false) }
     var steps by remember { mutableStateOf<List<String>>(emptyList()) }
 
     // Loading is manual, not automatic. The 1.29 GB graph is the riskiest thing this app does; if
     // the process dies during it, the app must still come up so the log can be read and the load
-    // retried, rather than dying on every launch.
+    // retried, rather than dying on every launch. The engine itself lives in LayaRuntime, so a
+    // screen recreation cannot lose it or build a second session.
     fun startLoad() {
         if (loading) return
         loading = true
@@ -94,28 +95,9 @@ fun LayaApp(activity: ComponentActivity) {
         status = "loading…"
         Thread {
             fun ui(block: () -> Unit) = activity.runOnUiThread(block)
-            val model = ModelLocator.find(activity)
-            if (model == null) {
-                val message = ModelLocator.explain(activity)
-                RunLog.e("model not found. $message")
-                ui { failure = message; status = "model missing"; loading = false }
-                return@Thread
-            }
             try {
-                val loaded = LayaEngine.open(
-                    tokenizerStream = activity.assets.open("laya/tokenizer.bin"),
-                    configStream = activity.assets.open("laya/config.json"),
-                    modelPath = model.absolutePath,
-                    probeStream = activity.assets.open("laya/probe.onnx"),
-                    cacheDir = activity.cacheDir,
-                    log = { line ->
-                        RunLog.i(line)
-                        ui { steps = steps + line }
-                    },
-                    memory = { RunLog.memoryLine(activity) },
-                    availableMb = { RunLog.availableMb(activity) },
-                )
-                ui { engine = loaded; status = "ready · ${model.name}"; loading = false }
+                val loaded = LayaRuntime.load(activity) { line -> ui { steps = steps + line } }
+                ui { engine = loaded; status = LayaRuntime.status; loading = false }
             } catch (t: Throwable) {
                 RunLog.e("engine load failed", t)
                 ui {
