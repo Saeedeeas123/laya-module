@@ -1,0 +1,12 @@
+# Build outputs
+build/
+.gradle/
+*.apk
+*.log
+tests.log
+build.log
+# Local toolchain path (device specific)
+local.properties
+# Python reference environment, if the asset tools are run here
+.venv/
+__pycache__/

@@ -1,0 +1,802 @@
+[
+ {
+  "state": {
+   "message": "Hi, we were billed twice for March. Please refund the duplicate today."
+  },
+  "questions": {
+   "department": {
+    "type": "choice",
+    "instructions": "Which department should handle this?",
+    "criteria": {
+     "billing": "invoices, payments, refunds",
+     "technical": "bugs, outages, system errors",
+     "other": "everything else"
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "instructions": "How urgent is this?",
+    "criteria": [
+     "not urgent",
+     "soon",
+     "blocking"
+    ]
+   },
+   "refund": {
+    "type": "noul",
+    "instructions": "Does the user request a refund?"
+   }
+  },
+  "expected": {
+   "department": {
+    "type": "choice",
+    "choice": "billing",
+    "probabilities": {
+     "billing": 1.0,
+     "technical": 0.0,
+     "other": 0.0
+    },
+    "confidence": 1.0,
+    "answer_confidence": 1.0,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "score": 1.8701,
+    "legend": {
+     "0": "not urgent",
+     "1": "soon",
+     "2": "blocking"
+    },
+    "probabilities": {
+     "0": 0.0069,
+     "1": 0.1161,
+     "2": 0.877
+    },
+    "confidence": 0.6363,
+    "answer_confidence": 0.877,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "refund": {
+    "type": "noul",
+    "noul": 0.991,
+    "confidence": 0.991,
+    "answer_confidence": 0.991,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "Hi, we were billed twice for March. Please refund the duplicate today."
+  },
+  "questions": {
+   "is_scam": {
+    "type": "noul",
+    "instructions": "Is this message trying to trick the reader into sending money, clicking a link, or revealing personal details?"
+   },
+   "topic": {
+    "type": "choice",
+    "instructions": "What is this message about?",
+    "criteria": {
+     "billing": "charges or refunds",
+     "delivery": "parcels",
+     "account": "login or access",
+     "other": "anything else"
+    }
+   }
+  },
+  "expected": {
+   "is_scam": {
+    "type": "noul",
+    "noul": 0.0121,
+    "confidence": 0.9879,
+    "answer_confidence": 0.9879,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "topic": {
+    "type": "choice",
+    "choice": "billing",
+    "probabilities": {
+     "billing": 1.0,
+     "delivery": 0.0,
+     "account": 0.0,
+     "other": 0.0
+    },
+    "confidence": 1.0,
+    "answer_confidence": 1.0,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "Hi, we were billed twice for March. Please refund the duplicate today."
+  },
+  "questions": {
+   "sentiment": {
+    "type": "score",
+    "instructions": "How does the sender feel?",
+    "criteria": [
+     "neutral",
+     "mildly unhappy",
+     "frustrated",
+     "angry"
+    ]
+   }
+  },
+  "expected": {
+   "sentiment": {
+    "type": "score",
+    "score": 2.0728,
+    "legend": {
+     "0": "neutral",
+     "1": "mildly unhappy",
+     "2": "frustrated",
+     "3": "angry"
+    },
+    "probabilities": {
+     "0": 0.0164,
+     "1": 0.0996,
+     "2": 0.6788,
+     "3": 0.2052
+    },
+    "confidence": 0.3615,
+    "answer_confidence": 0.6788,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "سلام، مبلغ اشتراک ماه گذشته دو بار از حساب من کم شده است. لطفاً برگردانید."
+  },
+  "questions": {
+   "department": {
+    "type": "choice",
+    "instructions": "Which department should handle this?",
+    "criteria": {
+     "billing": "invoices, payments, refunds",
+     "technical": "bugs, outages, system errors",
+     "other": "everything else"
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "instructions": "How urgent is this?",
+    "criteria": [
+     "not urgent",
+     "soon",
+     "blocking"
+    ]
+   },
+   "refund": {
+    "type": "noul",
+    "instructions": "Does the user request a refund?"
+   }
+  },
+  "expected": {
+   "department": {
+    "type": "choice",
+    "choice": "billing",
+    "probabilities": {
+     "billing": 0.9992,
+     "technical": 0.0003,
+     "other": 0.0005
+    },
+    "confidence": 0.9935,
+    "answer_confidence": 0.9992,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "score": 1.8762,
+    "legend": {
+     "0": "not urgent",
+     "1": "soon",
+     "2": "blocking"
+    },
+    "probabilities": {
+     "0": 0.0036,
+     "1": 0.1166,
+     "2": 0.8798
+    },
+    "confidence": 0.6508,
+    "answer_confidence": 0.8798,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "refund": {
+    "type": "noul",
+    "noul": 0.9952,
+    "confidence": 0.9952,
+    "answer_confidence": 0.9952,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "سلام، مبلغ اشتراک ماه گذشته دو بار از حساب من کم شده است. لطفاً برگردانید."
+  },
+  "questions": {
+   "is_scam": {
+    "type": "noul",
+    "instructions": "Is this message trying to trick the reader into sending money, clicking a link, or revealing personal details?"
+   },
+   "topic": {
+    "type": "choice",
+    "instructions": "What is this message about?",
+    "criteria": {
+     "billing": "charges or refunds",
+     "delivery": "parcels",
+     "account": "login or access",
+     "other": "anything else"
+    }
+   }
+  },
+  "expected": {
+   "is_scam": {
+    "type": "noul",
+    "noul": 0.0627,
+    "confidence": 0.9373,
+    "answer_confidence": 0.9373,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "topic": {
+    "type": "choice",
+    "choice": "billing",
+    "probabilities": {
+     "billing": 0.9998,
+     "delivery": 0.0,
+     "account": 0.0001,
+     "other": 0.0001
+    },
+    "confidence": 0.9984,
+    "answer_confidence": 0.9998,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "سلام، مبلغ اشتراک ماه گذشته دو بار از حساب من کم شده است. لطفاً برگردانید."
+  },
+  "questions": {
+   "sentiment": {
+    "type": "score",
+    "instructions": "How does the sender feel?",
+    "criteria": [
+     "neutral",
+     "mildly unhappy",
+     "frustrated",
+     "angry"
+    ]
+   }
+  },
+  "expected": {
+   "sentiment": {
+    "type": "score",
+    "score": 1.5731,
+    "legend": {
+     "0": "neutral",
+     "1": "mildly unhappy",
+     "2": "frustrated",
+     "3": "angry"
+    },
+    "probabilities": {
+     "0": 0.0687,
+     "1": 0.3418,
+     "2": 0.5372,
+     "3": 0.0523
+    },
+    "confidence": 0.2504,
+    "answer_confidence": 0.5372,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "Your parcel is held at customs. Pay the 25,000 T fee within 12 hours: http://x.example"
+  },
+  "questions": {
+   "department": {
+    "type": "choice",
+    "instructions": "Which department should handle this?",
+    "criteria": {
+     "billing": "invoices, payments, refunds",
+     "technical": "bugs, outages, system errors",
+     "other": "everything else"
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "instructions": "How urgent is this?",
+    "criteria": [
+     "not urgent",
+     "soon",
+     "blocking"
+    ]
+   },
+   "refund": {
+    "type": "noul",
+    "instructions": "Does the user request a refund?"
+   }
+  },
+  "expected": {
+   "department": {
+    "type": "choice",
+    "choice": "billing",
+    "probabilities": {
+     "billing": 0.9959,
+     "technical": 0.0015,
+     "other": 0.0026
+    },
+    "confidence": 0.9732,
+    "answer_confidence": 0.9959,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "score": 1.9017,
+    "legend": {
+     "0": "not urgent",
+     "1": "soon",
+     "2": "blocking"
+    },
+    "probabilities": {
+     "0": 0.005,
+     "1": 0.0883,
+     "2": 0.9067
+    },
+    "confidence": 0.6999,
+    "answer_confidence": 0.9067,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "refund": {
+    "type": "noul",
+    "noul": 0.9619,
+    "confidence": 0.9619,
+    "answer_confidence": 0.9619,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "Your parcel is held at customs. Pay the 25,000 T fee within 12 hours: http://x.example"
+  },
+  "questions": {
+   "is_scam": {
+    "type": "noul",
+    "instructions": "Is this message trying to trick the reader into sending money, clicking a link, or revealing personal details?"
+   },
+   "topic": {
+    "type": "choice",
+    "instructions": "What is this message about?",
+    "criteria": {
+     "billing": "charges or refunds",
+     "delivery": "parcels",
+     "account": "login or access",
+     "other": "anything else"
+    }
+   }
+  },
+  "expected": {
+   "is_scam": {
+    "type": "noul",
+    "noul": 0.2119,
+    "confidence": 0.7881,
+    "answer_confidence": 0.7881,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "topic": {
+    "type": "choice",
+    "choice": "billing",
+    "probabilities": {
+     "billing": 0.9488,
+     "delivery": 0.0504,
+     "account": 0.0002,
+     "other": 0.0006
+    },
+    "confidence": 0.8511,
+    "answer_confidence": 0.9488,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "Your parcel is held at customs. Pay the 25,000 T fee within 12 hours: http://x.example"
+  },
+  "questions": {
+   "sentiment": {
+    "type": "score",
+    "instructions": "How does the sender feel?",
+    "criteria": [
+     "neutral",
+     "mildly unhappy",
+     "frustrated",
+     "angry"
+    ]
+   }
+  },
+  "expected": {
+   "sentiment": {
+    "type": "score",
+    "score": 1.7152,
+    "legend": {
+     "0": "neutral",
+     "1": "mildly unhappy",
+     "2": "frustrated",
+     "3": "angry"
+    },
+    "probabilities": {
+     "0": 0.0897,
+     "1": 0.2285,
+     "2": 0.5585,
+     "3": 0.1232
+    },
+    "confidence": 0.1799,
+    "answer_confidence": 0.5585,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "مبلغ ۵۰۰٫۰۰۰ ریال از حساب شما کسر شد. موجودی: ۱۲٫۴۵۰٫۰۰۰ ریال"
+  },
+  "questions": {
+   "department": {
+    "type": "choice",
+    "instructions": "Which department should handle this?",
+    "criteria": {
+     "billing": "invoices, payments, refunds",
+     "technical": "bugs, outages, system errors",
+     "other": "everything else"
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "instructions": "How urgent is this?",
+    "criteria": [
+     "not urgent",
+     "soon",
+     "blocking"
+    ]
+   },
+   "refund": {
+    "type": "noul",
+    "instructions": "Does the user request a refund?"
+   }
+  },
+  "expected": {
+   "department": {
+    "type": "choice",
+    "choice": "billing",
+    "probabilities": {
+     "billing": 0.9857,
+     "technical": 0.0033,
+     "other": 0.011
+    },
+    "confidence": 0.9247,
+    "answer_confidence": 0.9857,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "score": 1.774,
+    "legend": {
+     "0": "not urgent",
+     "1": "soon",
+     "2": "blocking"
+    },
+    "probabilities": {
+     "0": 0.0166,
+     "1": 0.1929,
+     "2": 0.7905
+    },
+    "confidence": 0.4801,
+    "answer_confidence": 0.7905,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "refund": {
+    "type": "noul",
+    "noul": 0.069,
+    "confidence": 0.931,
+    "answer_confidence": 0.931,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "مبلغ ۵۰۰٫۰۰۰ ریال از حساب شما کسر شد. موجودی: ۱۲٫۴۵۰٫۰۰۰ ریال"
+  },
+  "questions": {
+   "is_scam": {
+    "type": "noul",
+    "instructions": "Is this message trying to trick the reader into sending money, clicking a link, or revealing personal details?"
+   },
+   "topic": {
+    "type": "choice",
+    "instructions": "What is this message about?",
+    "criteria": {
+     "billing": "charges or refunds",
+     "delivery": "parcels",
+     "account": "login or access",
+     "other": "anything else"
+    }
+   }
+  },
+  "expected": {
+   "is_scam": {
+    "type": "noul",
+    "noul": 0.1432,
+    "confidence": 0.8568,
+    "answer_confidence": 0.8568,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "topic": {
+    "type": "choice",
+    "choice": "billing",
+    "probabilities": {
+     "billing": 0.9914,
+     "delivery": 0.0006,
+     "account": 0.0067,
+     "other": 0.0014
+    },
+    "confidence": 0.96,
+    "answer_confidence": 0.9914,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "مبلغ ۵۰۰٫۰۰۰ ریال از حساب شما کسر شد. موجودی: ۱۲٫۴۵۰٫۰۰۰ ریال"
+  },
+  "questions": {
+   "sentiment": {
+    "type": "score",
+    "instructions": "How does the sender feel?",
+    "criteria": [
+     "neutral",
+     "mildly unhappy",
+     "frustrated",
+     "angry"
+    ]
+   }
+  },
+  "expected": {
+   "sentiment": {
+    "type": "score",
+    "score": 1.83,
+    "legend": {
+     "0": "neutral",
+     "1": "mildly unhappy",
+     "2": "frustrated",
+     "3": "angry"
+    },
+    "probabilities": {
+     "0": 0.0414,
+     "1": 0.1783,
+     "2": 0.689,
+     "3": 0.0912
+    },
+    "confidence": 0.3404,
+    "answer_confidence": 0.689,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "It works, I suppose. The export is slower than it used to be."
+  },
+  "questions": {
+   "department": {
+    "type": "choice",
+    "instructions": "Which department should handle this?",
+    "criteria": {
+     "billing": "invoices, payments, refunds",
+     "technical": "bugs, outages, system errors",
+     "other": "everything else"
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "instructions": "How urgent is this?",
+    "criteria": [
+     "not urgent",
+     "soon",
+     "blocking"
+    ]
+   },
+   "refund": {
+    "type": "noul",
+    "instructions": "Does the user request a refund?"
+   }
+  },
+  "expected": {
+   "department": {
+    "type": "choice",
+    "choice": "other",
+    "probabilities": {
+     "billing": 0.0968,
+     "technical": 0.2841,
+     "other": 0.6191
+    },
+    "confidence": 0.1986,
+    "answer_confidence": 0.6191,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "urgent": {
+    "type": "score",
+    "score": 1.5049,
+    "legend": {
+     "0": "not urgent",
+     "1": "soon",
+     "2": "blocking"
+    },
+    "probabilities": {
+     "0": 0.0629,
+     "1": 0.3692,
+     "2": 0.5678
+    },
+    "confidence": 0.2142,
+    "answer_confidence": 0.5678,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "refund": {
+    "type": "noul",
+    "noul": 0.0003,
+    "confidence": 0.9997,
+    "answer_confidence": 0.9997,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "It works, I suppose. The export is slower than it used to be."
+  },
+  "questions": {
+   "is_scam": {
+    "type": "noul",
+    "instructions": "Is this message trying to trick the reader into sending money, clicking a link, or revealing personal details?"
+   },
+   "topic": {
+    "type": "choice",
+    "instructions": "What is this message about?",
+    "criteria": {
+     "billing": "charges or refunds",
+     "delivery": "parcels",
+     "account": "login or access",
+     "other": "anything else"
+    }
+   }
+  },
+  "expected": {
+   "is_scam": {
+    "type": "noul",
+    "noul": 0.0117,
+    "confidence": 0.9883,
+    "answer_confidence": 0.9883,
+    "action": {
+     "act_probability": 1.0
+    }
+   },
+   "topic": {
+    "type": "choice",
+    "choice": "other",
+    "probabilities": {
+     "billing": 0.0328,
+     "delivery": 0.2292,
+     "account": 0.025,
+     "other": 0.713
+    },
+    "confidence": 0.4351,
+    "answer_confidence": 0.713,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ },
+ {
+  "state": {
+   "message": "It works, I suppose. The export is slower than it used to be."
+  },
+  "questions": {
+   "sentiment": {
+    "type": "score",
+    "instructions": "How does the sender feel?",
+    "criteria": [
+     "neutral",
+     "mildly unhappy",
+     "frustrated",
+     "angry"
+    ]
+   }
+  },
+  "expected": {
+   "sentiment": {
+    "type": "score",
+    "score": 1.6765,
+    "legend": {
+     "0": "neutral",
+     "1": "mildly unhappy",
+     "2": "frustrated",
+     "3": "angry"
+    },
+    "probabilities": {
+     "0": 0.0309,
+     "1": 0.3027,
+     "2": 0.6253,
+     "3": 0.041
+    },
+    "confidence": 0.3552,
+    "answer_confidence": 0.6253,
+    "action": {
+     "act_probability": 1.0
+    }
+   }
+  }
+ }
+]

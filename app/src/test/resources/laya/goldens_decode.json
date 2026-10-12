@@ -1,0 +1,460 @@
+[
+ {
+  "question": {
+   "type": "choice",
+   "instructions": "Which department should handle this request?",
+   "criteria": {
+    "billing": "invoices, payments, refunds",
+    "technical": "bugs, outages",
+    "other": "everything else"
+   }
+  },
+  "logits": [
+   0.001230153371579945,
+   0.2987455427646637,
+   -0.27413785457611084
+  ],
+  "act_logits": [
+   -0.8905918598175049,
+   -0.454670786857605
+  ],
+  "expected": {
+   "act_probability": 0.3927,
+   "type": "choice",
+   "choice": "technical",
+   "probabilities": {
+    "billing": 0.322,
+    "technical": 0.4335,
+    "other": 0.2445
+   }
+  }
+ },
+ {
+  "question": {
+   "type": "choice",
+   "instructions": "Which department should handle this request?",
+   "criteria": {
+    "billing": "invoices, payments, refunds",
+    "technical": "bugs, outages",
+    "other": "everything else"
+   }
+  },
+  "logits": [
+   -3.966586112976074,
+   0.2405744045972824,
+   5.360860824584961
+  ],
+  "act_logits": [
+   -0.49220651388168335,
+   -0.6204748749732971
+  ],
+  "expected": {
+   "act_probability": 0.532,
+   "type": "choice",
+   "choice": "other",
+   "probabilities": {
+    "billing": 0.0001,
+    "technical": 0.0059,
+    "other": 0.994
+   }
+  }
+ },
+ {
+  "question": {
+   "type": "score",
+   "instructions": "How urgent is this?",
+   "criteria": [
+    "not urgent",
+    "soon",
+    "blocking"
+   ]
+  },
+  "logits": [
+   0.4898420572280884,
+   0.35688701272010803,
+   0.1054142490029335
+  ],
+  "act_logits": [
+   -0.9304680228233337,
+   -0.02925182320177555
+  ],
+  "expected": {
+   "act_probability": 0.2888,
+   "type": "score",
+   "score": 0.8751,
+   "legend": {
+    "0": "not urgent",
+    "1": "soon",
+    "2": "blocking"
+   },
+   "probabilities": {
+    "0": 0.3912,
+    "1": 0.3425,
+    "2": 0.2663
+   }
+  }
+ },
+ {
+  "question": {
+   "type": "score",
+   "instructions": "How urgent is this?",
+   "criteria": [
+    "not urgent",
+    "soon",
+    "blocking"
+   ]
+  },
+  "logits": [
+   2.78121280670166,
+   -5.376858234405518,
+   -1.8304630517959595
+  ],
+  "act_logits": [
+   -1.9012227058410645,
+   -1.289537787437439
+  ],
+  "expected": {
+   "act_probability": 0.3517,
+   "type": "score",
+   "score": 0.02,
+   "legend": {
+    "0": "not urgent",
+    "1": "soon",
+    "2": "blocking"
+   },
+   "probabilities": {
+    "0": 0.9899,
+    "1": 0.0003,
+    "2": 0.0098
+   }
+  }
+ },
+ {
+  "question": {
+   "type": "noul",
+   "instructions": "Does the user request a refund?"
+  },
+  "logits": [
+   -1.8417350053787231,
+   -0.23509113490581512
+  ],
+  "act_logits": [
+   -1.267446517944336,
+   0.27126434445381165
+  ],
+  "expected": {
+   "act_probability": 0.1767,
+   "type": "noul",
+   "noul": 0.8329,
+   "confidence": 0.8329
+  }
+ },
+ {
+  "question": {
+   "type": "noul",
+   "instructions": "Does the user request a refund?"
+  },
+  "logits": [
+   0.6270043253898621,
+   -0.7477237582206726
+  ],
+  "act_logits": [
+   -2.5167596340179443,
+   -0.5386928915977478
+  ],
+  "expected": {
+   "act_probability": 0.1215,
+   "type": "noul",
+   "noul": 0.2019,
+   "confidence": 0.7981
+  }
+ },
+ {
+  "question": {
+   "type": "noul",
+   "instructions": "Is this suspicious?",
+   "criteria": {
+    "false": "an ordinary message",
+    "true": "a fraud attempt"
+   }
+  },
+  "logits": [
+   -0.048500943928956985,
+   0.11330898851156235
+  ],
+  "act_logits": [
+   -1.5301357507705688,
+   -0.47775328159332275
+  ],
+  "expected": {
+   "act_probability": 0.2588,
+   "type": "noul",
+   "noul": 0.5404,
+   "confidence": 0.5404
+  }
+ },
+ {
+  "question": {
+   "type": "noul",
+   "instructions": "Is this suspicious?",
+   "criteria": {
+    "false": "an ordinary message",
+    "true": "a fraud attempt"
+   }
+  },
+  "logits": [
+   -3.914076328277588,
+   -3.23534893989563
+  ],
+  "act_logits": [
+   1.0608986616134644,
+   -0.8075346946716309
+  ],
+  "expected": {
+   "act_probability": 0.8663,
+   "type": "noul",
+   "noul": 0.6635,
+   "confidence": 0.6635
+  }
+ },
+ {
+  "question": {
+   "type": "noul",
+   "instructions": "Is this positive?",
+   "criteria": {
+    "false": "negative",
+    "true": "positive"
+   },
+   "labels": {
+    "false": "B",
+    "true": "A"
+   }
+  },
+  "logits": [
+   -0.03252170607447624,
+   0.8843898773193359
+  ],
+  "act_logits": [
+   -0.5836004614830017,
+   -0.11170195043087006
+  ],
+  "expected": {
+   "act_probability": 0.3842,
+   "type": "noul",
+   "noul": 0.7144,
+   "confidence": 0.7144
+  }
+ },
+ {
+  "question": {
+   "type": "noul",
+   "instructions": "Is this positive?",
+   "criteria": {
+    "false": "negative",
+    "true": "positive"
+   },
+   "labels": {
+    "false": "B",
+    "true": "A"
+   }
+  },
+  "logits": [
+   0.4418565630912781,
+   0.25512710213661194
+  ],
+  "act_logits": [
+   -1.2250558137893677,
+   0.07614023238420486
+  ],
+  "expected": {
+   "act_probability": 0.214,
+   "type": "noul",
+   "noul": 0.4535,
+   "confidence": 0.5465
+  }
+ },
+ {
+  "question": {
+   "type": "choice",
+   "instructions": "What is this about?",
+   "criteria": {
+    "label_0": "description number 0 with a few words",
+    "label_1": "description number 1 with a few words",
+    "label_2": "description number 2 with a few words",
+    "label_3": "description number 3 with a few words",
+    "label_4": "description number 4 with a few words",
+    "label_5": "description number 5 with a few words",
+    "label_6": "description number 6 with a few words",
+    "label_7": "description number 7 with a few words",
+    "label_8": "description number 8 with a few words",
+    "label_9": "description number 9 with a few words",
+    "label_10": "description number 10 with a few words",
+    "label_11": "description number 11 with a few words"
+   }
+  },
+  "logits": [
+   1.3588234186172485,
+   -1.5471446514129639,
+   0.859382688999176,
+   0.11935402452945709,
+   -0.6414703726768494,
+   2.0004165172576904,
+   0.7622597217559814,
+   -1.1992888450622559,
+   0.07451622933149338,
+   0.576689600944519,
+   -0.18878212571144104,
+   0.6829102635383606
+  ],
+  "act_logits": [
+   -0.06651732325553894,
+   0.6672475337982178
+  ],
+  "expected": {
+   "act_probability": 0.3244,
+   "type": "choice",
+   "choice": "label_5",
+   "probabilities": {
+    "label_0": 0.1648,
+    "label_1": 0.009,
+    "label_2": 0.1,
+    "label_3": 0.0477,
+    "label_4": 0.0223,
+    "label_5": 0.3129,
+    "label_6": 0.0907,
+    "label_7": 0.0128,
+    "label_8": 0.0456,
+    "label_9": 0.0754,
+    "label_10": 0.0351,
+    "label_11": 0.0838
+   }
+  }
+ },
+ {
+  "question": {
+   "type": "choice",
+   "instructions": "What is this about?",
+   "criteria": {
+    "label_0": "description number 0 with a few words",
+    "label_1": "description number 1 with a few words",
+    "label_2": "description number 2 with a few words",
+    "label_3": "description number 3 with a few words",
+    "label_4": "description number 4 with a few words",
+    "label_5": "description number 5 with a few words",
+    "label_6": "description number 6 with a few words",
+    "label_7": "description number 7 with a few words",
+    "label_8": "description number 8 with a few words",
+    "label_9": "description number 9 with a few words",
+    "label_10": "description number 10 with a few words",
+    "label_11": "description number 11 with a few words"
+   }
+  },
+  "logits": [
+   5.754090309143066,
+   -2.7026491165161133,
+   0.8125544190406799,
+   -1.853230357170105,
+   0.5090736746788025,
+   -4.748778343200684,
+   -2.317206382751465,
+   -0.7847838997840881,
+   3.59505558013916,
+   4.580887794494629,
+   -5.294111251831055,
+   -3.1785695552825928
+  ],
+  "act_logits": [
+   0.646903395652771,
+   -1.9924198389053345
+  ],
+  "expected": {
+   "act_probability": 0.9333,
+   "type": "choice",
+   "choice": "label_0",
+   "probabilities": {
+    "label_0": 0.6945,
+    "label_1": 0.0001,
+    "label_2": 0.005,
+    "label_3": 0.0003,
+    "label_4": 0.0037,
+    "label_5": 0.0,
+    "label_6": 0.0002,
+    "label_7": 0.001,
+    "label_8": 0.0802,
+    "label_9": 0.2149,
+    "label_10": 0.0,
+    "label_11": 0.0001
+   }
+  }
+ },
+ {
+  "question": {
+   "type": "choice",
+   "instructions": "Which team?",
+   "criteria": [
+    "billing",
+    "technical",
+    "sales"
+   ],
+   "option_order": [
+    2,
+    0,
+    1
+   ]
+  },
+  "logits": [
+   -0.4631698727607727,
+   -0.09728692471981049,
+   1.2570149898529053
+  ],
+  "act_logits": [
+   0.6894038915634155,
+   -0.3272134065628052
+  ],
+  "expected": {
+   "act_probability": 0.7343,
+   "type": "choice",
+   "choice": "technical",
+   "probabilities": {
+    "billing": 0.1796,
+    "technical": 0.6958,
+    "sales": 0.1246
+   }
+  }
+ },
+ {
+  "question": {
+   "type": "choice",
+   "instructions": "Which team?",
+   "criteria": [
+    "billing",
+    "technical",
+    "sales"
+   ],
+   "option_order": [
+    2,
+    0,
+    1
+   ]
+  },
+  "logits": [
+   -1.4743036031723022,
+   -1.0007816553115845,
+   6.094117641448975
+  ],
+  "act_logits": [
+   -0.42802494764328003,
+   -0.3036803901195526
+  ],
+  "expected": {
+   "act_probability": 0.469,
+   "type": "choice",
+   "choice": "technical",
+   "probabilities": {
+    "billing": 0.0008,
+    "technical": 0.9987,
+    "sales": 0.0005
+   }
+  }
+ }
+]
